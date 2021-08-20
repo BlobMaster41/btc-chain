@@ -1,0 +1,42 @@
+
+extends layout
+
+block headContent
+	title ZealTm -  Bitcoin Explorer
+	
+block content
+	
+	
+
+		include includes/index-network-summary.pug
+		
+		h6 Learn About-Us
+							iframe(src='https://zealtm.group/zeal main.mp4', height='350px' width='100%')
+						
+		
+		if (latestBlocks)
+						
+						
+			+contentSection("Latest Blocks")
+				- var blocks = latestBlocks;
+				- var blockOffset = 0;
+				- var hideBlockIndex = false;
+
+				include includes/blocks-list.pug
+
+				if (blocks.length % 2 == 1)
+					hr
+				else
+					.mb-2
+
+				.text-center.pt-1
+					a.btn.btn-primary.btn-sm(href="./blocks")
+						i.fas.fa-cubes.me-2
+						| RECENTS BLOCKS & TRANSACTIONS &raquo;
+							
+
+		+contentSection("Tools")
+			include includes/tools-card.pug
+				
+
+		
