@@ -44,10 +44,10 @@ function getBlockchainInfo() {
 			}
 
 			resolve(getblockchaininfo);
-			
+
 		}).catch(reject);
 	});
-	
+
 }
 
 function getNetworkInfo() {
@@ -118,7 +118,7 @@ function getBlockStatsByHeight(height) {
 			return new Promise(function(resolve, reject) {
 				resolve(coinConfig.genesisBlockStatsByNetwork[global.activeBlockchain]);
 			});
-			
+
 		} else {
 			return getRpcDataWithParams({method:"getblockstats", parameters:[height]});
 		}
@@ -265,7 +265,7 @@ function getRawTransaction(txid, blockhash) {
 
 		} else {
 			var extra_params = blockhash ? [ blockhash ] : [];
-			getRpcDataWithParams({method:"getrawtransaction", parameters:[txid, 1, ...extra_params]}).then(function(result) {
+			getRpcDataWithParams({method:"getrawtransaction", parameters:[txid, 1]}).then(function(result) { //...extra_params
 				if (result == null || result.code && result.code < 0) {
 					return Promise.reject(result);
 				}
@@ -440,7 +440,7 @@ function getRpcData(cmd, verifyingConnection=false) {
 
 					if (Array.isArray(result) && result.length == 1) {
 						var result0 = result[0];
-						
+
 						if (result0 && result0.name && result0.name == "RpcError") {
 							logStats(cmd, false, new Date().getTime() - startTime, false);
 
@@ -471,7 +471,7 @@ function getRpcData(cmd, verifyingConnection=false) {
 				}
 			});
 		};
-		
+
 		rpcQueue.push({rpcCall:rpcCall});
 	});
 }
@@ -528,7 +528,7 @@ function getRpcDataWithParams(request, verifyingConnection=false) {
 				}
 			});
 		};
-		
+
 		rpcQueue.push({rpcCall:rpcCall});
 	});
 }
